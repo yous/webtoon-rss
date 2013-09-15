@@ -10,6 +10,15 @@ set :bind, '0.0.0.0'
 get /^\/naver\/(\d+)/ do |title_id|
 	site = open(NAVER_URL + title_id).read
 	resp = Nokogiri::HTML(site)
+
+	fixed_site = site.split("\n")
+	resp.errors.each do |error|
+		if error.message =~ /^htmlParseStartTag/
+			fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, '\1&lt;\3&gt;')
+		end
+	end
+
+	resp = Nokogiri::HTML(fixed_site.join("\n"))
 	base_content = resp.at("//div[@id='content']")
 
 	base_info = base_content.at("./div[@class='comicinfo']/div[@class='detail']")
