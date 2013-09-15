@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
-require 'json'
+require 'builder'
 
 class Webtoon
 	private
@@ -30,7 +30,22 @@ class NaverWebtoon < Webtoon
 	end
 
 	def get
-		@data
+		xml = Builder::XmlMarkup.new
+		xml.instruct! :xml, version: '1.0'
+		xml.rss version: '2.0' do
+			xml.channel do
+				xml.title @data[:title]
+				xml.description @data[:desc]
+				xml.link @url
+
+				@data[:comics].each do |comic|
+					xml.item do
+						xml.title comic[:title]
+						xml.pubDate comic[:date]
+					end
+				end
+			end
+		end
 	end
 
 	private
@@ -57,11 +72,11 @@ class NaverWebtoon < Webtoon
 			}
 		end
 
-		@data = JSON.generate({
+		@data = {
 			title: title,
 			writer: writer,
 			desc: desc,
 			comics: comics
-		})
+		}
 	end
 end
