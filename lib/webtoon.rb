@@ -2,7 +2,24 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-class NaverWebtoon
+class Webtoon
+	private
+	def open_site url
+		site = open(url).read
+		resp = Nokogiri::HTML(site)
+
+		fixed_site = site.split("\n")
+		resp.errors.each do |error|
+			if error.message =~ /^htmlParseStartTag/
+				fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, '\1&lt;\3&gt;')
+			end
+		end
+
+		fixed_site.join("\n")
+	end
+end
+
+class NaverWebtoon < Webtoon
 	@@url = 'http://comic.naver.com/webtoon/list.nhn?titleId='
 
 	def initialize title_id
@@ -18,17 +35,7 @@ class NaverWebtoon
 
 	private
 	def parse
-		site = open(@url).read
-		resp = Nokogiri::HTML(site)
-
-		fixed_site = site.split("\n")
-		resp.errors.each do |error|
-			if error.message =~ /^htmlParseStartTag/
-				fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, '\1&lt;\3&gt;')
-			end
-		end
-
-		resp = Nokogiri::HTML(fixed_site.join("\n"))
+		resp = Nokogiri::HTML(open_site(@url))
 		base_content = resp.at("//div[@id='content']")
 
 		base_info = base_content.at("./div[@class='comicinfo']/div[@class='detail']")
