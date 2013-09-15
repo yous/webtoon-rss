@@ -5,3 +5,9 @@
 ## Start
 
 	ruby -Ilib server.rb
+
+## Supported sites
+
+- [Naver][]
+
+[Naver]: http://comic.naver.com
