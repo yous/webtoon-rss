@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'builder'
+require 'time'
 
 class Webtoon
 	private
@@ -69,7 +70,7 @@ class NaverWebtoon < Webtoon
 			link = comic_title_link.attr('href')
 			link = "#{@@url}#{link}" if link =~ /^\//
 			rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
-			date = tr.at('./td[4]').inner_html.strip
+			date = Time.parse(tr.at('./td[4]').inner_html.strip).rfc822
 			comics << {
 				title: comic_title,
 				link: link,
