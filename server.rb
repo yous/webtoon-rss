@@ -1,4 +1,4 @@
-require 'lib/webtoon'
+require 'webtoon'
 require 'sinatra'
 
 set :bind, '0.0.0.0'
