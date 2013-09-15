@@ -20,11 +20,11 @@ class Webtoon
 end
 
 class NaverWebtoon < Webtoon
-	@@url = 'http://comic.naver.com/webtoon/list.nhn?titleId='
+	@@url = 'http://comic.naver.com'
 
 	def initialize title_id
 		@title_id = title_id
-		@url = @@url + @title_id
+		@url = "#{@@url}/webtoon/list.nhn?titleId=#{@title_id}"
 		@data = nil
 		parse
 	end
@@ -42,6 +42,8 @@ class NaverWebtoon < Webtoon
 					xml.item do
 						xml.title comic[:title]
 						xml.pubDate comic[:date]
+						xml.link comic[:link]
+						xml.guid comic[:link]
 					end
 				end
 			end
@@ -62,11 +64,15 @@ class NaverWebtoon < Webtoon
 		comics = []
 		base_content.search("./table[@class='viewList']/tr").each do |tr|
 			next if tr.search("./td[@class='blank']").length > 0
-			comic_title = tr.at("./td[@class='title']/a").inner_html.strip
+			comic_title_link = tr.at("./td[@class='title']/a")
+			comic_title = comic_title_link.inner_html.strip
+			link = comic_title_link.attr('href')
+			link = "#{@@url}#{link}" if link =~ /^\//
 			rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
 			date = tr.at('./td[4]').inner_html.strip
 			comics << {
 				title: comic_title,
+				link: link,
 				rating: rating,
 				date: date
 			}
