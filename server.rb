@@ -27,9 +27,23 @@ get /^\/naver\/(\d+)/ do |title_id|
 	writer = title_with_writer.at('./span').inner_html.strip
 	desc = base_info.at('./p').inner_html.gsub(/\s*<br\s*\/?>\s*/i, "\n")
 
+	comics = []
+	base_content.search("./table[@class='viewList']/tr").each do |tr|
+		next if tr.search("./td[@class='blank']").length > 0
+		comic_title = tr.at("./td[@class='title']/a").inner_html.strip
+		rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
+		date = tr.at('./td[4]').inner_html.strip
+		comics << {
+			title: comic_title,
+			rating: rating,
+			date: date
+		}
+	end
+
 	JSON.generate({
 		title: title,
 		writer: writer,
-		desc: desc
+		desc: desc,
+		comics: comics
 	})
 end
