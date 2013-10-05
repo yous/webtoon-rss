@@ -13,7 +13,6 @@ rvm:
   - rbx-19mode
   - ree
 
-env:
-  matrix:
-    allow_failures:
-      - rvm: ruby-head
+matrix:
+  allow_failures:
+    - rvm: ruby-head
