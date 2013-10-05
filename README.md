@@ -8,7 +8,7 @@
 
 ## Start
 
-	ruby -Ilib server.rb
+	$ ruby -Ilib server.rb
 
 ## Supported sites
 
