@@ -32,8 +32,8 @@ class NaverWebtoon < Webtoon
 
 	def get
 		xml = Builder::XmlMarkup.new
-		xml.instruct! :xml, :version => '1.0'
-		xml.rss :version => '2.0' do
+		xml.instruct! :xml, version: '1.0'
+		xml.rss version: '2.0' do
 			xml.channel do
 				xml.title @data[:title]
 				xml.description @data[:desc]
@@ -72,18 +72,18 @@ class NaverWebtoon < Webtoon
 			rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
 			date = Time.parse(tr.at('./td[4]').inner_html.strip).rfc822
 			comics << {
-				:title => comic_title,
-				:link => link,
-				:rating => rating,
-				:date => date
+				title: comic_title,
+				link: link,
+				rating: rating,
+				date: date
 			}
 		end
 
 		@data = {
-			:title => title,
-			:writer => writer,
-			:desc => desc,
-			:comics => comics
+			title: title,
+			writer: writer,
+			desc: desc,
+			comics: comics
 		}
 	end
 end
