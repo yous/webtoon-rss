@@ -1,9 +1,11 @@
 # Webtoon RSS
 
 [![Build Status](https://travis-ci.org/yous/webtoon-rss.png?branch=master)][Travis CI]
+[![Dependency Status](https://gemnasium.com/yous/webtoon-rss.png)][Gemnasium]
 [![Coverage Status](https://coveralls.io/repos/yous/webtoon-rss/badge.png)][Coveralls]
 
 [Travis CI]: https://travis-ci.org/yous/webtoon-rss
+[Gemnasium]: https://gemnasium.com/yous/webtoon-rss
 [Coveralls]: https://coveralls.io/r/yous/webtoon-rss
 
 ## Requirements
