@@ -3,10 +3,14 @@ require 'nokogiri'
 require 'builder'
 require 'time'
 
-class Webtoon
+class Site
+  def url
+    ""
+  end
+
   private
-  def open_site url
-    site = open(url).read
+  def read
+    site = URI.parse(url).open.read
     resp = Nokogiri::HTML(site)
 
     fixed_site = site.split("\n")
@@ -20,7 +24,7 @@ class Webtoon
   end
 end
 
-class NaverWebtoon < Webtoon
+class Naver < Site
   @@url = 'http://comic.naver.com'
 
   def initialize title_id
@@ -28,6 +32,10 @@ class NaverWebtoon < Webtoon
     @url = "#{@@url}/webtoon/list.nhn?titleId=#{@title_id}"
     @data = nil
     parse
+  end
+
+  def url
+    @url
   end
 
   def get
@@ -53,7 +61,7 @@ class NaverWebtoon < Webtoon
 
   private
   def parse
-    resp = Nokogiri::HTML(open_site(@url))
+    resp = Nokogiri::HTML(read)
     base_content = resp.at("//div[@id='content']")
 
     base_info = base_content.at("./div[@class='comicinfo']/div[@class='detail']")

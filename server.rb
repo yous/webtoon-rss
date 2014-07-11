@@ -1,4 +1,4 @@
-require 'webtoon'
+require 'site'
 require 'sinatra'
 
 set :bind, '0.0.0.0'
@@ -8,5 +8,5 @@ before do
 end
 
 get /^\/naver\/(\d+)/ do |title_id|
-  NaverWebtoon.new(title_id).get
+  Naver.new(title_id).get
 end
