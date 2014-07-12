@@ -44,7 +44,8 @@ module WebtoonRSS
 
       base_info = base_content.at("./div[@class='comicinfo']/div[@class='detail']")
       title_with_writer = base_info.at("./h2")
-      title = $1.strip if title_with_writer.inner_html =~ /([^<]+)/
+      /(?<title>[^<]+)/ =~ title_with_writer.inner_html
+      title.strip!
       writer = title_with_writer.at("./span").inner_html.strip
       desc = base_info.at("./p").inner_html.gsub(/\s*<br\s*\/?>\s*/i, "\n")
 
