@@ -1,10 +1,10 @@
-require 'webtoon_rss'
-require 'sinatra'
+require "webtoon_rss"
+require "sinatra"
 
-set :bind, '0.0.0.0'
+set :bind, "0.0.0.0"
 
 before do
-  content_type 'text/xml'
+  content_type "text/xml"
 end
 
 get WebtoonRSS::Naver::MATCHER do |title_id|

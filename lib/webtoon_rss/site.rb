@@ -1,9 +1,9 @@
-require 'open-uri'
+require "open-uri"
 
 module WebtoonRSS
   class Site
     def self.site_name
-      name.split('::').last.downcase
+      name.split("::").last.downcase
     end
 
     def url
@@ -18,7 +18,7 @@ module WebtoonRSS
       fixed_site = site.split("\n")
       resp.errors.each do |error|
         if error.message =~ /^htmlParseStartTag/
-          fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, '\1&lt;\3&gt;')
+          fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, "\\1&lt;\\3&gt;")
         end
       end
 
