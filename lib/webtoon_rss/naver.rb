@@ -3,6 +3,7 @@ require 'builder'
 module WebtoonRSS
   class Naver < Site
     HOSTNAME = 'http://comic.naver.com'
+    MATCHER = /^\/#{site_name}\/(\d+)/
 
     def initialize(title_id)
       @title_id = title_id

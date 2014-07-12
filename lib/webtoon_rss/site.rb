@@ -2,6 +2,10 @@ require 'open-uri'
 
 module WebtoonRSS
   class Site
+    def self.site_name
+      name.split('::').last.downcase
+    end
+
     def url
       ""
     end
