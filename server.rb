@@ -7,6 +7,6 @@ before do
   content_type 'text/xml'
 end
 
-get /^\/naver\/(\d+)/ do |title_id|
+get(/^\/naver\/(\d+)/) do |title_id|
   WebtoonRSS::Naver.new(title_id).get
 end

@@ -4,7 +4,7 @@ module WebtoonRSS
   class Naver < Site
     BASE_URL = 'http://comic.naver.com'
 
-    def initialize title_id
+    def initialize(title_id)
       @title_id = title_id
       @url = "#{BASE_URL}/webtoon/list.nhn?titleId=#{@title_id}"
       @data = nil
