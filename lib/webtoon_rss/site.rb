@@ -11,6 +11,7 @@ module WebtoonRSS
     end
 
     private
+
     def read
       site = URI.parse(url).open.read
       resp = Nokogiri::HTML(site)

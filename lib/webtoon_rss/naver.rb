@@ -38,6 +38,7 @@ module WebtoonRSS
     end
 
     private
+
     def parse
       resp = Nokogiri::HTML(read)
       base_content = resp.at("//div[@id='content']")
