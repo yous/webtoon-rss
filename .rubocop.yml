@@ -7,6 +7,9 @@ AllCops:
 Style/Encoding:
   Enabled: true
 
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
 Style/IndentHash:
   EnforcedStyle: consistent
 
