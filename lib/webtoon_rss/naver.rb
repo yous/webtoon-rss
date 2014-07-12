@@ -5,15 +5,13 @@ module WebtoonRSS
     HOSTNAME = "http://comic.naver.com"
     MATCHER = %r{^/#{site_name}/(\d+)}
 
+    attr_reader :url
+
     def initialize(title_id)
       @title_id = title_id
       @url = "#{HOSTNAME}/webtoon/list.nhn?titleId=#{@title_id}"
       @data = nil
       parse
-    end
-
-    def url
-      @url
     end
 
     def get
