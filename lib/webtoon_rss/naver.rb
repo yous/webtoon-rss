@@ -41,7 +41,8 @@ module WebtoonRSS
       resp = Nokogiri::HTML(read)
       base_content = resp.at("//div[@id='content']")
 
-      base_info = base_content.at("./div[@class='comicinfo']/div[@class='detail']")
+      base_info = base_content.at("./div[@class='comicinfo']" \
+                                  "/div[@class='detail']")
       title_with_writer = base_info.at("./h2")
       /(?<title>[^<]+)/ =~ title_with_writer.inner_html
       title.strip!
@@ -55,7 +56,11 @@ module WebtoonRSS
         comic_title = comic_title_link.inner_html.strip
         link = comic_title_link.attr("href")
         link = "#{HOSTNAME}#{link}" if link =~ /^\//
-        rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
+        rating = tr.at(
+          "./td[3]" \
+          "/div[@class='rating_type']" \
+          "/strong"
+        ).inner_html.strip
         date = Time.parse(tr.at("./td[4]").inner_html.strip).rfc822
         comics << {
           title: comic_title,
