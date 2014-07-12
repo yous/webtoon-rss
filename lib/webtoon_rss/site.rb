@@ -16,7 +16,7 @@ module WebtoonRSS
       resp = Nokogiri::HTML(site)
 
       fixed_site = site.split("\n")
-      resp.errors.each do |error|
+      resp.errors.reverse.each do |error|
         if error.message =~ /^htmlParseStartTag/
           fixed_site[error.line - 1].gsub!(/^([\w\W]{#{error.column - 2}})(<)([^>]*)(>)/, "\\1&lt;\\3&gt;")
         end
