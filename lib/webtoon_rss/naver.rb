@@ -2,11 +2,11 @@ require 'builder'
 
 module WebtoonRSS
   class Naver < Site
-    BASE_URL = 'http://comic.naver.com'
+    HOSTNAME = 'http://comic.naver.com'
 
     def initialize(title_id)
       @title_id = title_id
-      @url = "#{BASE_URL}/webtoon/list.nhn?titleId=#{@title_id}"
+      @url = "#{HOSTNAME}/webtoon/list.nhn?titleId=#{@title_id}"
       @data = nil
       parse
     end
@@ -53,7 +53,7 @@ module WebtoonRSS
         comic_title_link = tr.at("./td[@class='title']/a")
         comic_title = comic_title_link.inner_html.strip
         link = comic_title_link.attr('href')
-        link = "#{BASE_URL}#{link}" if link =~ /^\//
+        link = "#{HOSTNAME}#{link}" if link =~ /^\//
         rating = tr.at("./td[3]/div[@class='rating_type']/strong").inner_html.strip
         date = Time.parse(tr.at('./td[4]').inner_html.strip).rfc822
         comics << {
