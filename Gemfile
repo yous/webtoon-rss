@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
-gem 'nokogiri'
-gem 'builder'
+gem 'sinatra', '~> 1.4.5'
+gem 'nokogiri', '~> 1.6.3'
+gem 'builder', '~> 3.2.2'
 
-gem 'coveralls', require: false
+gem 'coveralls', '~> 0.7.1', require: false
 gem 'rubocop', '~> 0.25.0', require: false
-gem 'rake'
-gem 'rspec'
+gem 'rake', '~> 10.0'
+gem 'rspec', '~> 3.0'
