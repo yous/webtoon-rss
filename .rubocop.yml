@@ -3,6 +3,3 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Include:
     - '**/Gemfile'
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
