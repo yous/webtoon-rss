@@ -1,1 +1,2 @@
-.coveralls.yml
+/.bundle/
+/coverage/
