@@ -1,7 +1,10 @@
 require 'rspec/core/rake_task'
-require 'coveralls/rake/task'
-
 RSpec::Core::RakeTask.new(:spec)
+
+require 'coveralls/rake/task'
 Coveralls::RakeTask.new
 
-task default: [:spec, 'coveralls:push']
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new(:rubocop)
+
+task default: [:spec, 'coveralls:push', :rubocop]
