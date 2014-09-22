@@ -71,7 +71,7 @@ PLATFORMS
 
 DEPENDENCIES
   builder (~> 3.2.2)
-  coveralls (~> 0.7.1)
+  coveralls
   nokogiri (~> 1.6.3)
   rake (~> 10.0)
   rspec (~> 3.0)
